@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EventForce Management System | Data Migration & Security</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="brand">
+        <div class="brand-icon">⚡</div>
+
+        <div>
+            <h2>EventForce</h2>
+            <span>MANAGEMENT SYSTEM</span>
+        </div>
+    </div>
+
+    <nav id="navMenu">
+        <a href="#home">Home</a>
+        <a href="#migration">Migration</a>
+        <a href="#testing">Testing</a>
+        <a href="#security">Security</a>
+        <a href="#access">Access Control</a>
+    </nav>
+
+    <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </button>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section id="home" class="hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <div class="badge">
+            SALESFORCE DATA MIGRATION • TESTING • SECURITY
+        </div>
+
+        <h1>
+            EventForce<br>
+            <span>Management System</span>
+        </h1>
+
+        <p>
+            Migrate event data safely, validate system functionality
+            and control Salesforce access using profiles, roles,
+            users, permission sets and sharing settings.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#migration" class="btn primary">
+                Start Migration
+            </a>
+
+            <a href="#security" class="btn outline">
+                Security Controls
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DATA MIGRATION ================= -->
+
+<section id="migration" class="section">
+
+    <div class="section-heading">
+
+        <div class="number">
+            01
+        </div>
+
+        <div>
+            <span>DATA MANAGEMENT</span>
+
+            <h2>
+                Data Migration
+            </h2>
+
+            <p>
+                Move EventForce data into Salesforce while
+                maintaining data accuracy and relationships.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="migration-grid">
+
+        <div class="migration-card">
+
+            <div class="migration-icon">
+                📥
+            </div>
+
+            <h3>
+                Extract
+            </h3>
+
+            <p>
+                Collect existing event, participant, venue and
+                expense data from the source system.
+            </p>
+
+            <div class="step">
+                STEP 01
+            </div>
+
+        </div>
+
+
+        <div class="migration-card">
+
+            <div class="migration-icon">
+                🔄
+            </div>
+
+            <h3>
+                Transform
+            </h3>
+
+            <p>
+                Clean duplicate records, standardize formats
+                and map fields to Salesforce objects.
+            </p>
+
+            <div class="step">
+                STEP 02
+            </div>
+
+        </div>
+
+
+        <div class="migration-card">
+
+            <div class="migration-icon">
+                ☁️
+            </div>
+
+            <h3>
+                Load
+            </h3>
+
+            <p>
+                Import validated records into EventForce
+                Salesforce objects.
+            </p>
+
+            <div class="step">
+                STEP 03
+            </div>
+
+        </div>
+
+
+        <div class="migration-card">
+
+            <div class="migration-icon">
+                ✓
+            </div>
+
+            <h3>
+                Validate
+            </h3>
+
+            <p>
+                Compare source and destination data to verify
+                successful migration.
+            </p>
+
+            <div class="step">
+                STEP 04
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Migration Progress -->
+
+    <div class="progress-container">
+
+        <div class="progress-header">
+
+            <div>
+                <span>MIGRATION STATUS</span>
+
+                <h3>
+                    EventForce Data Migration
+                </h3>
+            </div>
+
+            <strong id="progressText">
+                82%
+            </strong>
+
+        </div>
+
+        <div class="progress-bar">
+
+            <div id="progress"
+                 class="progress"
+                 style="width:82%">
+            </div>
+
+        </div>
+
+        <p>
+            8,200 of 10,000 records successfully migrated.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TESTING ================= -->
+
+<section id="testing" class="section dark">
+
+    <div class="section-heading light">
+
+        <div class="number">
+            02
+        </div>
+
+        <div>
+            <span>QUALITY ASSURANCE</span>
+
+            <h2>
+                Testing
+            </h2>
+
+            <p>
+                Validate functionality, security and performance
+                before deploying EventForce.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="testing-grid">
+
+        <div class="test-card">
+
+            <div class="test-top">
+                <div class="test-icon">✓</div>
+                <span class="passed">PASSED</span>
+            </div>
+
+            <h3>
+                Functional Testing
+            </h3>
+
+            <p>
+                Verify that event registration, participant
+                management and other features work correctly.
+            </p>
+
+            <div class="test-score">
+                98%
+            </div>
+
+        </div>
+
+
+        <div class="test-card">
+
+            <div class="test-top">
+                <div class="test-icon">🔒</div>
+                <span class="passed">PASSED</span>
+            </div>
+
+            <h3>
+                Security Testing
+            </h3>
+
+            <p>
+                Validate access controls, permissions and
+                record-level security.
+            </p>
+
+            <div class="test-score">
+                100%
+            </div>
+
+        </div>
+
+
+        <div class="test-card">
+
+            <div class="test-top">
+                <div class="test-icon">⚡</div>
+                <span class="passed">PASSED</span>
+            </div>
+
+            <h3>
+                Performance Testing
+            </h3>
+
+            <p>
+                Test application performance and system response
+                under expected workloads.
+            </p>
+
+            <div class="test-score">
+                95%
+            </div>
+
+        </div>
+
+
+        <div class="test-card">
+
+            <div class="test-top">
+                <div class="test-icon">👤</div>
+                <span class="passed">PASSED</span>
+            </div>
+
+            <h3>
+                User Acceptance Testing
+            </h3>
+
+            <p>
+                Confirm that the EventForce solution meets
+                business and user requirements.
+            </p>
+
+            <div class="test-score">
+                97%
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SECURITY ================= -->
+
+<section id="security" class="section">
+
+    <div class="section-heading">
+
+        <div class="number">
+            03
+        </div>
+
+        <div>
+            <span>ACCESS MANAGEMENT</span>
+
+            <h2>
+                Salesforce Security
+            </h2>
+
+            <p>
+                Configure secure access to EventForce data
+                using multiple Salesforce security layers.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="security-grid">
+
+        <!-- Profile -->
+
+        <div class="security-card">
+
+            <div class="security-icon">
+                👤
+            </div>
+
+            <div class="security-number">
+                01
+            </div>
+
+            <h3>
+                Profile
+            </h3>
+
+            <p>
+                Defines the basic permissions and access
+                available to a Salesforce user.
+            </p>
+
+            <button onclick="showSecurity('Profile')">
+                View Details →
+            </button>
+
+        </div>
+
+
+        <!-- Role -->
+
+        <div class="security-card">
+
+            <div class="security-icon">
+                🏢
+            </div>
+
+            <div class="security-number">
+                02
+            </div>
+
+            <h3>
+                Role
+            </h3>
+
+            <p>
+                Controls record visibility within the
+                EventForce organizational hierarchy.
+            </p>
+
+            <button onclick="showSecurity('Role')">
+                View Details →
+            </button>
+
+        </div>
+
+
+        <!-- User -->
+
+        <div class="security-card">
+
+            <div class="security-icon">
+                👥
+            </div>
+
+            <div class="security-number">
+                03
+            </div>
+
+            <h3>
+                User
+            </h3>
+
+            <p>
+                Represents an individual who can access
+                the EventForce Salesforce organization.
+            </p>
+
+            <button onclick="showSecurity('User')">
+                View Details →
+            </button>
+
+        </div>
+
+
+        <!-- Permission Set -->
+
+        <div class="security-card">
+
+            <div class="security-icon">
+                🔑
+            </div>
+
+            <div class="security-number">
+                04
+            </div>
+
+            <h3>
+                Permission Set
+            </h3>
+
+            <p>
+                Provides additional permissions without
+                changing the user's profile.
+            </p>
+
+            <button onclick="showSecurity('Permission Set')">
+                View Details →
+            </button>
+
+        </div>
+
+
+        <!-- Sharing -->
+
+        <div class="security-card">
+
+            <div class="security-icon">
+                🔗
+            </div>
+
+            <div class="security-number">
+                05
+            </div>
+
+            <h3>
+                Sharing Settings
+            </h3>
+
+            <p>
+                Controls which records users can access
+                using organization-wide sharing controls.
+            </p>
+
+            <button onclick="showSecurity('Sharing Settings')">
+                View Details →
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ACCESS CONTROL ================= -->
+
+<section id="access" class="access-section">
+
+    <div class="access-heading">
+
+        <span>04 — SECURITY ARCHITECTURE</span>
+
+        <h2>
+            EventForce Access Control
+        </h2>
+
+        <p>
+            Layered security ensures users receive only
+            the access required for their responsibilities.
+        </p>
+
+    </div>
+
+
+    <div class="access-flow">
+
+        <div class="access-box">
+
+            <div>
+                👤
+            </div>
+
+            <h3>
+                User
+            </h3>
+
+            <span>
+                Identity
+            </span>
+
+        </div>
+
+
+        <div class="arrow">
+            →
+        </div>
+
+
+        <div class="access-box">
+
+            <div>
+                🛡️
+            </div>
+
+            <h3>
+                Profile
+            </h3>
+
+            <span>
+                Base Permissions
+            </span>
+
+        </div>
+
+
+        <div class="arrow">
+            →
+        </div>
+
+
+        <div class="access-box">
+
+            <div>
+                🔑
+            </div>
+
+            <h3>
+                Permission Set
+            </h3>
+
+            <span>
+                Additional Access
+            </span>
+
+        </div>
+
+
+        <div class="arrow">
+            →
+        </div>
+
+
+        <div class="access-box">
+
+            <div>
+                🏢
+            </div>
+
+            <h3>
+                Role
+            </h3>
+
+            <span>
+                Hierarchy
+            </span>
+
+        </div>
+
+
+        <div class="arrow">
+            →
+        </div>
+
+
+        <div class="access-box final">
+
+            <div>
+                🔐
+            </div>
+
+            <h3>
+                Sharing
+            </h3>
+
+            <span>
+                Record Access
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SECURITY MONITOR ================= -->
+
+<section class="monitor-section">
+
+    <div class="monitor-container">
+
+        <div class="monitor-header">
+
+            <div>
+
+                <span>
+                    EVENTFORCE SECURITY CENTER
+                </span>
+
+                <h2>
+                    System Security Status
+                </h2>
+
+            </div>
+
+            <div class="secure-status">
+                <i></i>
+                SECURE
+            </div>
+
+        </div>
+
+
+        <div class="security-stats">
+
+            <div>
+
+                <strong>
+                    05
+                </strong>
+
+                <span>
+                    Security Layers
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    24
+                </strong>
+
+                <span>
+                    Active Users
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    100%
+                </strong>
+
+                <span>
+                    Security Tests
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    0
+                </strong>
+
+                <span>
+                    Critical Issues
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        Event<span>Force</span>
+    </div>
+
+    <p>
+        Data Migration • Testing • Security
+    </p>
+
+    <small>
+        © 2026 EventForce Management System
+    </small>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EventForce Management System | Backend Configuration</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        Event<span>Force</span>
+    </div>
+
+    <div class="logo-subtitle">
+        MANAGEMENT SYSTEM
+    </div>
+
+    <nav id="navMenu">
+        <a href="#account">Salesforce</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#implementation">Implementation</a>
+        <a href="#configuration">Configuration</a>
+        <a href="#apex">Apex</a>
+    </nav>
+
+    <button class="menu-button" onclick="toggleMenu()">
+        ☰
+    </button>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <div class="badge">
+            SALESFORCE BACKEND DEVELOPMENT
+        </div>
+
+        <h1>
+            EventForce<br>
+            <span>Management System</span>
+        </h1>
+
+        <p>
+            Configure a powerful Salesforce backend for event planning,
+            participant management, approvals, automation and reporting.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#architecture" class="btn primary">
+                Explore Architecture
+            </a>
+
+            <a href="#implementation" class="btn secondary">
+                Implementation Steps
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ACCOUNT ================= -->
+
+<section id="account" class="section">
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            01
+        </div>
+
+        <div>
+            <p>PLATFORM SETUP</p>
+            <h2>Salesforce Account</h2>
+        </div>
+
+    </div>
+
+
+    <div class="account-layout">
+
+        <div class="account-card">
+
+            <div class="salesforce-icon">
+                ☁
+            </div>
+
+            <h3>
+                EventForce Salesforce Organization
+            </h3>
+
+            <p>
+                The Salesforce organization acts as the central backend
+                platform for managing events, participants, venues,
+                tasks, budgets and approvals.
+            </p>
+
+            <div class="status">
+                <span></span>
+                SYSTEM CONFIGURATION
+            </div>
+
+        </div>
+
+
+        <div class="feature-list">
+
+            <div class="feature">
+                <strong>01</strong>
+                <div>
+                    <h3>Organization Setup</h3>
+                    <p>Configure Salesforce organization and users.</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <strong>02</strong>
+                <div>
+                    <h3>Security Configuration</h3>
+                    <p>Configure profiles, roles and permission sets.</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <strong>03</strong>
+                <div>
+                    <h3>Data Management</h3>
+                    <p>Store and manage EventForce business data.</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <strong>04</strong>
+                <div>
+                    <h3>Automation</h3>
+                    <p>Automate approvals, notifications and processes.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DATA ARCHITECTURE ================= -->
+
+<section id="architecture" class="section dark">
+
+    <div class="section-heading light">
+
+        <div class="section-number">
+            02
+        </div>
+
+        <div>
+            <p>DATABASE DESIGN</p>
+            <h2>Data Architecture</h2>
+        </div>
+
+    </div>
+
+
+    <div class="architecture">
+
+        <div class="object-card main-object">
+
+            <div class="object-icon">
+                📅
+            </div>
+
+            <h3>Event__c</h3>
+
+            <p>Central event object</p>
+
+            <div class="object-fields">
+                <span>Event Name</span>
+                <span>Start Date</span>
+                <span>End Date</span>
+                <span>Budget</span>
+                <span>Status</span>
+            </div>
+
+        </div>
+
+
+        <div class="relationship">
+            <span>1 : M</span>
+        </div>
+
+
+        <div class="object-card">
+
+            <div class="object-icon">
+                👥
+            </div>
+
+            <h3>Participant__c</h3>
+
+            <p>Event participants</p>
+
+            <div class="object-fields">
+                <span>Name</span>
+                <span>Email</span>
+                <span>Phone</span>
+                <span>Attendance</span>
+            </div>
+
+        </div>
+
+
+        <div class="object-card">
+
+            <div class="object-icon">
+                🏢
+            </div>
+
+            <h3>Venue__c</h3>
+
+            <p>Event venue details</p>
+
+            <div class="object-fields">
+                <span>Venue Name</span>
+                <span>Location</span>
+                <span>Capacity</span>
+                <span>Availability</span>
+            </div>
+
+        </div>
+
+
+        <div class="object-card">
+
+            <div class="object-icon">
+                💰
+            </div>
+
+            <h3>Expense__c</h3>
+
+            <p>Event financial records</p>
+
+            <div class="object-fields">
+                <span>Category</span>
+                <span>Amount</span>
+                <span>Date</span>
+                <span>Vendor</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= IMPLEMENTATION ================= -->
+
+<section id="implementation" class="section">
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            03
+        </div>
+
+        <div>
+            <p>DEVELOPMENT PLAN</p>
+            <h2>Steps to Implement</h2>
+        </div>
+
+    </div>
+
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+
+            <div class="timeline-number">
+                01
+            </div>
+
+            <div>
+                <h3>Create Salesforce Organization</h3>
+                <p>
+                    Set up the Salesforce environment and configure
+                    organization-wide settings.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-number">
+                02
+            </div>
+
+            <div>
+                <h3>Create Custom Objects</h3>
+                <p>
+                    Create Event, Participant, Venue, Expense and
+                    Task objects.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-number">
+                03
+            </div>
+
+            <div>
+                <h3>Configure Fields & Relationships</h3>
+                <p>
+                    Add required fields and connect objects using
+                    lookup and master-detail relationships.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-number">
+                04
+            </div>
+
+            <div>
+                <h3>Configure Automation</h3>
+                <p>
+                    Implement validation rules, approval processes
+                    and Salesforce Flows.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+            <div class="timeline-number">
+                05
+            </div>
+
+            <div>
+                <h3>Develop Apex</h3>
+                <p>
+                    Create Apex classes and asynchronous processing
+                    for advanced backend operations.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CONFIGURATION ================= -->
+
+<section id="configuration" class="section dark">
+
+    <div class="section-heading light">
+
+        <div class="section-number">
+            04
+        </div>
+
+        <div>
+            <p>SALESFORCE CONFIGURATION</p>
+            <h2>Backend Components</h2>
+        </div>
+
+    </div>
+
+
+    <div class="configuration-grid">
+
+
+        <!-- Tabs -->
+
+        <div class="config-card">
+
+            <div class="config-icon">
+                🗂️
+            </div>
+
+            <h3>Tabs</h3>
+
+            <p>
+                Create custom tabs for Event, Participant, Venue,
+                Expense and Task objects.
+            </p>
+
+            <ul>
+                <li>Event Tab</li>
+                <li>Participant Tab</li>
+                <li>Venue Tab</li>
+                <li>Expense Tab</li>
+            </ul>
+
+        </div>
+
+
+        <!-- Fields -->
+
+        <div class="config-card">
+
+            <div class="config-icon">
+                🧩
+            </div>
+
+            <h3>Fields & Relationships</h3>
+
+            <p>
+                Define fields and establish relationships between
+                EventForce objects.
+            </p>
+
+            <ul>
+                <li>Text Fields</li>
+                <li>Date Fields</li>
+                <li>Currency Fields</li>
+                <li>Lookup Relationships</li>
+            </ul>
+
+        </div>
+
+
+        <!-- Validation -->
+
+        <div class="config-card">
+
+            <div class="config-icon">
+                ✓
+            </div>
+
+            <h3>Validation Rules</h3>
+
+            <p>
+                Prevent invalid event data from entering the system.
+            </p>
+
+            <ul>
+                <li>End Date Validation</li>
+                <li>Budget Validation</li>
+                <li>Email Validation</li>
+                <li>Capacity Validation</li>
+            </ul>
+
+        </div>
+
+
+        <!-- Approval -->
+
+        <div class="config-card">
+
+            <div class="config-icon">
+                ✓
+            </div>
+
+            <h3>Approval Process</h3>
+
+            <p>
+                Route high-value events and budget requests to
+                authorized managers.
+            </p>
+
+            <ul>
+                <li>Submit Request</li>
+                <li>Manager Review</li>
+                <li>Approve / Reject</li>
+                <li>Notification</li>
+            </ul>
+
+        </div>
+
+
+        <!-- Flows -->
+
+        <div class="config-card">
+
+            <div class="config-icon">
+                ⚡
+            </div>
+
+            <h3>Flows</h3>
+
+            <p>
+                Automate repetitive EventForce business processes
+                using Salesforce Flow.
+            </p>
+
+            <ul>
+                <li>Event Registration Flow</li>
+                <li>Approval Flow</li>
+                <li>Email Notification</li>
+                <li>Task Creation</li>
+            </ul>
+
+        </div>
+
+
+        <!-- Apex -->
+
+        <div class="config-card">
+
+            <div class="config-icon">
+                &lt;/&gt;
+            </div>
+
+            <h3>Apex Classes</h3>
+
+            <p>
+                Use Apex for complex backend logic that cannot be
+                handled using declarative tools.
+            </p>
+
+            <ul>
+                <li>EventController</li>
+                <li>ParticipantService</li>
+                <li>BudgetService</li>
+                <li>NotificationService</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= APEX ================= -->
+
+<section id="apex" class="section apex-section">
+
+    <div class="section-heading">
+
+        <div class="section-number">
+            05
+        </div>
+
+        <div>
+            <p>PROGRAMMING & AUTOMATION</p>
+            <h2>Batchable & Schedulable Apex</h2>
+        </div>
+
+    </div>
+
+
+    <div class="apex-layout">
+
+        <div class="code-window">
+
+            <div class="code-header">
+
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <span>EventForceBatch.cls</span>
+
+            </div>
+
+
+            <pre><code>
+global class EventForceBatch
+    implements Database.Batchable&lt;sObject&gt; {
+
+    global Database.QueryLocator start(
+        Database.BatchableContext bc
+    ) {
+
+        return Database.getQueryLocator(
+            'SELECT Id, Name, Status__c ' +
+            'FROM Event__c'
+        );
+    }
+
+    global void execute(
+        Database.BatchableContext bc,
+        List&lt;Event__c&gt; events
+    ) {
+
+        for(Event__c event : events) {
+
+            // Event processing logic
+
+        }
+
+        update events;
+    }
+
+    global void finish(
+        Database.BatchableContext bc
+    ) {
+
+        // Completion logic
+
+    }
+}
+            </code></pre>
+
+        </div>
+
+
+        <div class="apex-info">
+
+            <div class="async-card">
+
+                <span class="async-number">
+                    01
+                </span>
+
+                <h3>Batchable Apex</h3>
+
+                <p>
+                    Processes large volumes of EventForce records
+                    in manageable batches.
+                </p>
+
+                <div class="async-tag">
+                    LARGE DATA PROCESSING
+                </div>
+
+            </div>
+
+
+            <div class="async-card">
+
+                <span class="async-number">
+                    02
+                </span>
+
+                <h3>Schedulable Apex</h3>
+
+                <p>
+                    Runs backend operations automatically according
+                    to a defined schedule.
+                </p>
+
+                <div class="async-tag">
+                    AUTOMATED SCHEDULING
+                </div>
+
+            </div>
+
+
+            <div class="async-card">
+
+                <span class="async-number">
+                    03
+                </span>
+
+                <h3>Queueable Apex</h3>
+
+                <p>
+                    Executes asynchronous jobs and supports
+                    complex processing chains.
+                </p>
+
+                <div class="async-tag">
+                    ASYNCHRONOUS PROCESSING
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SYSTEM FLOW ================= -->
+
+<section class="system-flow">
+
+    <div class="flow-title">
+
+        <p>SYSTEM WORKFLOW</p>
+
+        <h2>EventForce Backend Flow</h2>
+
+    </div>
+
+
+    <div class="flow">
+
+        <div class="flow-box">
+            User
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <div class="flow-box">
+            Salesforce
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <div class="flow-box">
+            Validation
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <div class="flow-box">
+            Flow
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <div class="flow-box">
+            Apex
+        </div>
+
+        <div class="arrow">
+            →
+        </div>
+
+        <div class="flow-box final">
+            Database
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        Event<span>Force</span>
+    </div>
+
+    <p>
+        Salesforce Backend Development & Configurations
+    </p>
+
+    <p class="copyright">
+        © 2026 EventForce Management System
+    </p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

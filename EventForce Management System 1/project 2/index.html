@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventForce Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+tailwind.config={theme:{extend:{
+ fontFamily:{sans:['"DM Sans"','system-ui','sans-serif'],serif:['Fraunces','Georgia','serif']},
+ colors:{
+  indigo:{50:'#fff1ed',100:'#ffe0d8',200:'#ffc2b2',300:'#ff9b82',400:'#ff7d5e',500:'#ff6b4a',600:'#e5502f',700:'#c23f22',800:'#9a321c',900:'#7a2916'},
+  blue:{50:'#effbe3',100:'#e0f7c4',200:'#cdf59a',300:'#b8f35a',400:'#9bd83a',500:'#7bb82a',600:'#0d4a42',700:'#0a3d36',800:'#08302b',900:'#062722'},
+  slate:{50:'#fbf7f0',100:'#f3ecdf',200:'#e9e0d0',300:'#d3c8b3',400:'#9aa89f',500:'#7a8a82',600:'#53665f',700:'#2f4a43',800:'#0d4a42',900:'#08302b'},
+  gray:{50:'#fbf7f0',100:'#f5efe3',200:'#e9e0d0',300:'#d9cfbb',400:'#9aa89f',500:'#7a8a82',600:'#53665f',700:'#2f4a43',800:'#103b35',900:'#08302b'},
+  emerald:{50:'#f1fbe0',100:'#e3f7bd',500:'#7bb82a',600:'#5f9d12',700:'#4a7d0d'},
+  green:{50:'#f1fbe0',100:'#e3f7bd',500:'#7bb82a',600:'#5f9d12',700:'#4a7d0d'}
+ }}}}
+</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: #fbf7f0;
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0d4a42; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #08302b; 
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Nav active state */
+        .nav-item.active {
+            background-color: #ffe0d8;
+            color: #ff6b4a;
+            border-right: 4px solid #ff6b4a;
+        }
+    
+        :root{--ink:#08302b;--coral:#ff6b4a;--lime:#b8f35a;--cream:#fbf7f0}
+        body{font-family:'DM Sans',sans-serif!important;-webkit-font-smoothing:antialiased}
+        h1,h2,h3,.font-serif-d{font-family:'Fraunces',Georgia,serif;letter-spacing:-.02em}
+        ::-webkit-scrollbar-thumb{background:#0d4a42!important;border-radius:99px!important}
+        ::-webkit-scrollbar-track{background:#fbf7f0!important}
+        ::selection{background:#ff6b4a;color:#fff}
+        .rounded-lg{border-radius:14px!important}.rounded-xl{border-radius:20px!important}.rounded-2xl{border-radius:24px!important}.rounded-3xl{border-radius:32px!important}
+        button,.btn{border-radius:999px}
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-gray-800">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-lg z-20 flex-shrink-0 flex flex-col hidden md:flex transition-all duration-300" id="sidebar">
+        <div class="h-16 flex items-center px-6 border-b border-gray-100">
+            <div class="flex items-center gap-2 text-indigo-600 font-bold text-xl tracking-tight">
+                <i class="fa-solid fa-bolt"></i>
+                <span class="leading-tight">EventForce<span class="block text-[10px] uppercase tracking-[.2em] font-semibold text-slate-500">Management System</span></span>
+            </div>
+        </div>
+        
+        <div class="flex-1 overflow-y-auto py-4">
+            <nav class="space-y-1 px-3">
+                <a href="#" onclick="showSection('dashboard')" class="nav-item active flex items-center px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition-colors" data-target="dashboard">
+                    <i class="fa-solid fa-chart-line w-6 text-center mr-2"></i> Dashboard
+                </a>
+                <a href="#" onclick="showSection('events')" class="nav-item flex items-center px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition-colors" data-target="events">
+                    <i class="fa-regular fa-calendar-check w-6 text-center mr-2"></i> Events
+                </a>
+                <a href="#" onclick="showSection('attendees')" class="nav-item flex items-center px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition-colors" data-target="attendees">
+                    <i class="fa-solid fa-users w-6 text-center mr-2"></i> Attendees
+                </a>
+                <a href="#" onclick="showSection('venues')" class="nav-item flex items-center px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition-colors" data-target="venues">
+                    <i class="fa-solid fa-map-location-dot w-6 text-center mr-2"></i> Venues
+                </a>
+                <a href="#" onclick="showSection('reports')" class="nav-item flex items-center px-3 py-2.5 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-indigo-600 transition-colors" data-target="reports">
+                    <i class="fa-solid fa-file-invoice w-6 text-center mr-2"></i> Reports
+                </a>
+            </nav>
+
+            <div class="mt-8 px-6">
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Settings</h3>
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-colors">
+                        <i class="fa-solid fa-gear w-6 text-center mr-2"></i> Preferences
+                    </a>
+                    <a href="#" class="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-indigo-600 transition-colors">
+                        <i class="fa-solid fa-shield-halved w-6 text-center mr-2"></i> Security
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-100">
+            <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=ff6b4a&color=fff" alt="User Avatar" class="w-10 h-10 rounded-full shadow-sm">
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate">Sarah Connor</p>
+                    <p class="text-xs text-gray-500 truncate">Event Director</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <!-- Header -->
+        <header class="h-16 bg-white shadow-sm z-10 flex items-center justify-between px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center">
+                <button id="mobile-menu-btn" class="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none p-2 mr-2 rounded-md hover:bg-gray-100">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="relative w-64 max-w-sm hidden sm:block">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+                    </span>
+                    <input type="text" class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 bg-gray-50 focus:bg-white transition-colors" placeholder="Search events, attendees...">
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 text-gray-400 hover:text-gray-500 rounded-full hover:bg-gray-100 transition-colors">
+                    <span class="absolute top-1.5 right-1.5 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
+                    <i class="fa-regular fa-bell text-xl"></i>
+                </button>
+                <button class="hidden sm:flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm" onclick="openCreateModal()">
+                    <i class="fa-solid fa-plus"></i> New Event
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Scrollable Area -->
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 relative">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section fade-in block">
+                <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
+                        <p class="text-sm text-gray-500 mt-1">Here's what's happening with your events today.</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-1 shadow-sm border border-gray-200 inline-flex">
+                        <button class="px-3 py-1.5 text-xs font-medium rounded-md bg-gray-100 text-gray-800">7 Days</button>
+                        <button class="px-3 py-1.5 text-xs font-medium rounded-md text-gray-500 hover:text-gray-800">30 Days</button>
+                        <button class="px-3 py-1.5 text-xs font-medium rounded-md text-gray-500 hover:text-gray-800">All Time</button>
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-transform hover:-translate-y-1 hover:shadow-md">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Total Events</p>
+                                <h3 class="text-2xl font-bold text-gray-900 mt-1">124</h3>
+                            </div>
+                            <div class="p-2 bg-blue-50 rounded-lg">
+                                <i class="fa-regular fa-calendar text-blue-600 text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="text-emerald-600 font-medium flex items-center"><i class="fa-solid fa-arrow-trend-up mr-1 text-xs"></i> 12%</span>
+                            <span class="text-gray-400 ml-2">vs last month</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-transform hover:-translate-y-1 hover:shadow-md">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Total Attendees</p>
+                                <h3 class="text-2xl font-bold text-gray-900 mt-1">14,290</h3>
+                            </div>
+                            <div class="p-2 bg-indigo-50 rounded-lg">
+                                <i class="fa-solid fa-users text-indigo-600 text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="text-emerald-600 font-medium flex items-center"><i class="fa-solid fa-arrow-trend-up mr-1 text-xs"></i> 8.5%</span>
+                            <span class="text-gray-400 ml-2">vs last month</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-transform hover:-translate-y-1 hover:shadow-md">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Revenue</p>
+                                <h3 class="text-2xl font-bold text-gray-900 mt-1">$452.8K</h3>
+                            </div>
+                            <div class="p-2 bg-emerald-50 rounded-lg">
+                                <i class="fa-solid fa-dollar-sign text-emerald-600 text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="text-emerald-600 font-medium flex items-center"><i class="fa-solid fa-arrow-trend-up mr-1 text-xs"></i> 24%</span>
+                            <span class="text-gray-400 ml-2">vs last month</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 transition-transform hover:-translate-y-1 hover:shadow-md">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Avg. Satisfaction</p>
+                                <h3 class="text-2xl font-bold text-gray-900 mt-1">4.8/5</h3>
+                            </div>
+                            <div class="p-2 bg-amber-50 rounded-lg">
+                                <i class="fa-regular fa-star text-amber-500 text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex items-center text-sm">
+                            <span class="text-gray-500 font-medium flex items-center"><i class="fa-solid fa-minus mr-1 text-xs"></i> 0%</span>
+                            <span class="text-gray-400 ml-2">vs last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 lg:col-span-2">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Registration Trends</h3>
+                            <button class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                        </div>
+                        <div class="relative h-72 w-full">
+                            <canvas id="registrationChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Event Types</h3>
+                        </div>
+                        <div class="relative h-64 w-full flex justify-center items-center">
+                            <canvas id="typeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Events List -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                        <h3 class="text-lg font-semibold text-gray-800">Upcoming Events</h3>
+                        <a href="#" onclick="showSection('events')" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">View All</a>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-xs uppercase text-gray-500 bg-gray-50 border-b border-gray-100">
+                                    <th class="px-6 py-3 font-semibold">Event Name</th>
+                                    <th class="px-6 py-3 font-semibold">Date</th>
+                                    <th class="px-6 py-3 font-semibold">Location</th>
+                                    <th class="px-6 py-3 font-semibold">Status</th>
+                                    <th class="px-6 py-3 font-semibold text-right">Registrations</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm divide-y divide-gray-100" id="dashboard-events-table">
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Events Section -->
+            <section id="events" class="content-section fade-in hidden">
+                <div class="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Event Management</h1>
+                        <p class="text-sm text-gray-500 mt-1">Manage all your upcoming and past events.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-filter text-gray-400"></i> Filter
+                        </button>
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm flex items-center gap-2" onclick="openCreateModal()">
+                            <i class="fa-solid fa-plus"></i> Create Event
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="events-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Attendees Section -->
+            <section id="attendees" class="content-section fade-in hidden">
+                <div class="h-full flex flex-col items-center justify-center text-center py-20">
+                    <div class="w-24 h-24 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-users text-4xl text-indigo-300"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Attendee Directory</h2>
+                    <p class="text-gray-500 max-w-md mb-8">Manage your complete list of attendees, speakers, and VIPs across all events.</p>
+                    <button class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 shadow-sm transition-colors">
+                        Import CSV
+                    </button>
+                </div>
+            </section>
+
+             <!-- Venues Section -->
+             <section id="venues" class="content-section fade-in hidden">
+                <div class="h-full flex flex-col items-center justify-center text-center py-20">
+                    <div class="w-24 h-24 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-map-location-dot text-4xl text-indigo-300"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Venue Management</h2>
+                    <p class="text-gray-500 max-w-md">Keep track of locations, capacities, and contact information for your event spaces.</p>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="content-section fade-in hidden">
+                <div class="h-full flex flex-col items-center justify-center text-center py-20">
+                    <div class="w-24 h-24 bg-indigo-50 rounded-full flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-file-invoice text-4xl text-indigo-300"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Advanced Reporting</h2>
+                    <p class="text-gray-500 max-w-md">Generate custom reports for ROI, attendance tracking, and financial summaries.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-gray-900/50 z-20 hidden md:hidden transition-opacity backdrop-blur-sm"></div>
+
+    <!-- Create Event Modal -->
+    <div id="create-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden p-4 sm:p-0">
+        <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm transition-opacity" onclick="closeCreateModal()"></div>
+        
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-lg z-10 overflow-hidden flex flex-col max-h-[90vh] fade-in">
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                <h3 class="text-lg font-semibold text-gray-900">Create New Event</h3>
+                <button onclick="closeCreateModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto flex-1">
+                <form id="create-event-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Event Name</label>
+                        <input type="text" id="event-name" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g. Annual Tech Summit 2027">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                            <input type="date" id="event-date" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                            <select id="event-type" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+                                <option>Conference</option>
+                                <option>Workshop</option>
+                                <option>Webinar</option>
+                                <option>Networking</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <i class="fa-solid fa-location-dot text-gray-400"></i>
+                            </span>
+                            <input type="text" id="event-location" required class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Venue or Online Link">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                        <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Brief details about the event..."></textarea>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-end gap-3">
+                <button type="button" onclick="closeCreateModal()" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Cancel
+                </button>
+                <button type="button" onclick="submitEvent()" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Create Event
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-gray-900 text-white px-4 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-message" class="text-sm font-medium">Action successful!</span>
+    </div>
+
+    <script>
+        // --- Mock Data ---
+        const eventsData = [
+            { id: 1, name: 'Global Tech Summit 2026', date: 'Oct 15, 2026', location: 'San Francisco, CA', status: 'Published', type: 'Conference', registrations: 1250, capacity: 2000, revenue: '$185,000', image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { id: 2, name: 'Marketing Leadership Workshop', date: 'Oct 22, 2026', location: 'New York, NY', status: 'Draft', type: 'Workshop', registrations: 45, capacity: 100, revenue: '$12,500', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { id: 3, name: 'Q4 Product Release Webinar', date: 'Nov 05, 2026', location: 'Online', status: 'Published', type: 'Webinar', registrations: 3400, capacity: 5000, revenue: 'Free', image: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { id: 4, name: 'FinTech Innovators Gala', date: 'Nov 12, 2026', location: 'London, UK', status: 'Published', type: 'Networking', registrations: 320, capacity: 400, revenue: '$85,000', image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' },
+            { id: 5, name: 'Healthcare AI Symposium', date: 'Dec 01, 2026', location: 'Boston, MA', status: 'Draft', type: 'Conference', registrations: 0, capacity: 800, revenue: '$0', image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80' }
+        ];
+
+        // --- Navigation Logic ---
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(sec => {
+                sec.classList.remove('block');
+                sec.classList.add('hidden');
+            });
+            
+            // Show target
+            const target = document.getElementById(sectionId);
+            if(target) {
+                target.classList.remove('hidden');
+                target.classList.add('block');
+            }
+
+            // Update nav styling
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active', 'bg-e0e7ff', 'text-indigo-600', 'border-r-4', 'border-indigo-600');
+                if (nav.dataset.target === sectionId) {
+                    nav.classList.add('active');
+                }
+            });
+
+            // Close mobile menu if open
+            if(window.innerWidth < 768) {
+                toggleMobileMenu(false);
+            }
+        }
+
+        // --- Mobile Sidebar Logic ---
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+
+        function toggleMobileMenu(forceState) {
+            const isClosing = forceState === false || !sidebar.classList.contains('hidden');
+            
+            if (isClosing) {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('absolute', 'inset-y-0', 'left-0');
+                mobileOverlay.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('hidden', 'md:flex');
+                sidebar.classList.add('flex', 'absolute', 'inset-y-0', 'left-0', 'h-full');
+                mobileOverlay.classList.remove('hidden');
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', () => toggleMobileMenu());
+        mobileOverlay.addEventListener('click', () => toggleMobileMenu(false));
+
+        // --- Data Rendering ---
+        function getStatusColor(status) {
+            return status === 'Published' 
+                ? 'bg-emerald-100 text-emerald-800 border-emerald-200' 
+                : 'bg-amber-100 text-amber-800 border-amber-200';
+        }
+
+        function renderDashboardTable() {
+            const tbody = document.getElementById('dashboard-events-table');
+            tbody.innerHTML = '';
+            
+            // Show top 4 events
+            eventsData.slice(0, 4).forEach(event => {
+                const percentage = Math.round((event.registrations / event.capacity) * 100);
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50 transition-colors group';
+                tr.innerHTML = `
+                    <td class="px-6 py-4">
+                        <div class="flex flex-col">
+                            <span class="font-medium text-gray-900 group-hover:text-indigo-600 transition-colors">${event.name}</span>
+                            <span class="text-xs text-gray-500">${event.type}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600">${event.date}</td>
+                    <td class="px-6 py-4 text-gray-600">
+                        <div class="flex items-center gap-1">
+                            <i class="fa-solid fa-location-dot text-gray-400 text-xs"></i>
+                            <span class="truncate max-w-[120px]">${event.location}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <span class="px-2.5 py-1 text-xs font-medium rounded-full border ${getStatusColor(event.status)}">
+                            ${event.status}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex flex-col items-end">
+                            <span class="font-medium text-gray-900">${event.registrations.toLocaleString()}</span>
+                            <div class="w-16 bg-gray-200 rounded-full h-1.5 mt-1">
+                                <div class="bg-indigo-600 h-1.5 rounded-full" style="width: ${percentage}%"></div>
+                            </div>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderEventsGrid() {
+            const grid = document.getElementById('events-grid');
+            grid.innerHTML = '';
+
+            eventsData.forEach(event => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col h-full group';
+                card.innerHTML = `
+                    <div class="h-40 overflow-hidden relative">
+                        <img src="${event.image}" alt="${event.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute top-3 right-3">
+                             <span class="px-2.5 py-1 text-xs font-medium rounded-full backdrop-blur-md bg-white/90 border ${getStatusColor(event.status)}">
+                                ${event.status}
+                            </span>
+                        </div>
+                        <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded text-xs font-bold text-gray-800 uppercase tracking-wide">
+                             ${event.type}
+                        </div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight mb-2 group-hover:text-indigo-600 transition-colors">${event.name}</h3>
+                        
+                        <div class="space-y-2 mt-auto">
+                            <div class="flex items-center text-sm text-gray-600">
+                                <i class="fa-regular fa-calendar w-5 text-gray-400"></i>
+                                <span>${event.date}</span>
+                            </div>
+                            <div class="flex items-center text-sm text-gray-600">
+                                <i class="fa-solid fa-location-dot w-5 text-gray-400"></i>
+                                <span class="truncate">${event.location}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 pt-4 border-t border-gray-100 flex justify-between items-center">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">Attendees</p>
+                                <p class="font-semibold text-gray-900">${event.registrations.toLocaleString()} <span class="text-xs text-gray-400 font-normal">/ ${event.capacity}</span></p>
+                            </div>
+                            <button class="text-indigo-600 hover:bg-indigo-50 p-2 rounded-lg transition-colors" title="Manage Event">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // --- Modals & Toasts ---
+        const modal = document.getElementById('create-modal');
+        const form = document.getElementById('create-event-form');
+        
+        function openCreateModal() {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                document.getElementById('event-name').focus();
+            }, 100);
+        }
+
+        function closeCreateModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            form.reset();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function submitEvent() {
+            if(!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const newEvent = {
+                id: eventsData.length + 1,
+                name: document.getElementById('event-name').value,
+                date: new Date(document.getElementById('event-date').value).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+                location: document.getElementById('event-location').value,
+                type: document.getElementById('event-type').value,
+                status: 'Draft',
+                registrations: 0,
+                capacity: 500, // default mock
+                image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+            };
+
+            eventsData.unshift(newEvent);
+            renderDashboardTable();
+            renderEventsGrid();
+            
+            closeCreateModal();
+            showToast('Event created successfully!');
+        }
+
+        // --- Charts Initialization ---
+        function initCharts() {
+            // Common chart options
+            Chart.defaults.font.family = "'DM Sans', sans-serif";
+            Chart.defaults.color = '#53665f';
+            
+            // Line Chart: Registration Trends
+            const ctxReg = document.getElementById('registrationChart').getContext('2d');
+            
+            // Create gradient
+            const gradient = ctxReg.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(255, 107, 74, 0.2)');
+            gradient.addColorStop(1, 'rgba(255, 107, 74, 0)');
+
+            new Chart(ctxReg, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Registrations',
+                        data: [1200, 1900, 1500, 2200, 1800, 3100, 4200],
+                        borderColor: '#ff6b4a',
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#ff6b4a',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#08302b',
+                            padding: 10,
+                            cornerRadius: 8,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#f1f5f9',
+                                drawBorder: false,
+                            },
+                            ticks: { maxTicksLimit: 6 }
+                        },
+                        x: {
+                            grid: { display: false, drawBorder: false }
+                        }
+                    }
+                }
+            });
+
+            // Doughnut Chart: Event Types
+            const ctxType = document.getElementById('typeChart').getContext('2d');
+            new Chart(ctxType, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Conferences', 'Workshops', 'Webinars', 'Networking'],
+                    datasets: [{
+                        data: [45, 25, 20, 10],
+                        backgroundColor: [
+                            '#ff6b4a', // Indigo
+                            '#0d4a42', // Sky
+                            '#b8f35a', // Emerald
+                            '#e5b93c'  // Amber
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '75%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDashboardTable();
+            renderEventsGrid();
+            initCharts();
+        });
+
+    </script>
+</body>
+</html>
